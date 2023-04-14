@@ -20,66 +20,87 @@ let playerName = document.querySelector('#playerName')
 // Event Listeners
 classicMode.addEventListener('click', login);
 difficultMode.addEventListener('click',login);
+playButton.addEventListener('click', playGame);
 iconContainer.addEventListener('click', chooseFighter);
-playButton.addEventListener('click', playGame)
 
 // Data Model
-// let game = {
-//     player: {
-//         name: 'Human',
-//         token,
-//         wins: 0
-//     },
-//     isActive: false,
-//     computerWins: 0,
-//     playerWon: false,
-// }
+// Psuedocode:
+    // click lets play button and create a player with the name passed in, and create a game with two players passed in, and the game.level: classic.difficult. player and computer's wins will uddate
+    //user chooses an icon, invoke takeTurn function   
+        //take turn function checks the icon selection and generates computer's random selection
+        //check draw first to see if player and computer choice was same
+        //check winner if draw is false, wins will be pushed into either player.wins or computer.wins
+    //player and computer wins display will update based on the number of wins in the player's data models.
+    let game;
 
 // Functions
-function createPlayer(token) {
+function createPlayer(name = 'Player') {
     return {
-        name: 'Human',
-        token,
+        name,
+        token: '👱',
         wins: 0
     }
 }
 
-function createGame(game, player1, player2) {
+function createGame(player1, player2, mode) {
     return {
-        game,
         player1,
         player2,
+        mode,
     }
 }
-// Classic Mode 
+
+// function playGame(modeChosen) {
+//     let player1 = createPlayer(userName.value)
+//     let player2 = createPlayer('Computer')
+    
+//     createGame(player1, player2, mode)
+// }
+
+function takeTurn(){
+
+}
+
+function checkWinner(){
+
+}
+
+function checkDraw() {
+
+}
+
+function resetGame() {
+
+}
+
+// Login Page
 function login(e){
-    loginView.classList.remove('hidden');
     chooseMsg.innerHTML = 'Enter Your Name & Choose Avatar'
 
+    loginView.classList.remove('hidden');
     for (let game of gameBoxes){
         game.classList.add('hidden')
     };
+    game = createGame()
+    selectGameMode(e);
+}
 
+function selectGameMode(e) {
     if (e.target.id === 'classic' || e.target.parentElement.id === 'classic'){
-        gameChosen = 'classic';
+        game.mode = 'classic';
     } 
 
     if (e.target.id === 'difficult' || e.target.parentElement.id === 'difficult'){
-        gameChosen = 'difficult';
+        game.mode = 'difficult';
     }
-    console.log(gameChosen)
 }
 
-function playGame(e){
-    e.preventDefault();
-
-    if (gameChosen === 'classic'){
+function checkGameChosen() {
+    if (game.mode === 'classic'){
         classicModeGame();
-    } if (gameChosen === 'difficult'){
+    } if (game.mode === 'difficult'){
         difficultModeGame();
     }
-
-    checkName()
 }
 
 function checkName() {
@@ -88,8 +109,15 @@ function checkName() {
     }
 }
 
+function playGame(e){
+    e.preventDefault();
+    checkGameChosen();
+    checkName();
+}
+
+// Classic Mode 
 function classicModeGame() {
-    gameChosen = 'classic';
+    game.mode = 'classic';
     chooseMsg.innerHTML = 'Choose Your Fighter'
 
     loginView.classList.add('hidden')

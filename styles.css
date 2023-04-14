@@ -71,6 +71,36 @@ main {
 
 }
 
+/* LOGIN VIEW */
+#login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+label {
+    font-size: 1.5rem;
+    padding: 0 10px;
+}
+
+input {
+    height: 30px;
+    width: 200px;
+    border-radius: 10px;
+    margin: 10px 0 30px 0
+}
+
+.avatar {
+    font-size: 4rem;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.avatar:hover {
+    font-size: 4.5rem;
+}
+
 /* GAME VIEW */
 .icon-container {
     display: flex;
@@ -86,7 +116,6 @@ main {
 
 .icon:hover {
     height: 9rem;
-
 }
 
 .hidden {

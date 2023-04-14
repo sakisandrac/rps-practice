@@ -23,6 +23,8 @@ h1 {
 
 main {
     color: rgba(38, 38, 38, 0.8);   
+    /* display: flex; */
+    /* justify-content: center; */
 }
 
 #choose-header {
@@ -67,4 +69,8 @@ main {
     color:antiquewhite;
     text-shadow: 3px 2px 2px black;
 
+}
+
+.hidden {
+    display: none;
 }

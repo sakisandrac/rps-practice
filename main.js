@@ -60,14 +60,14 @@ function login(e){
         game.classList.add('hidden')
     };
 
-    if (e.target.id || e.target.parentElement.id === 'classic'){
+    if (e.target.id === 'classic' || e.target.parentElement.id === 'classic'){
         gameChosen = 'classic';
     } 
 
-    if (e.target.id || e.target.parentElement.id === 'difficult'){
+    if (e.target.id === 'difficult' || e.target.parentElement.id === 'difficult'){
         gameChosen = 'difficult';
     }
-
+    console.log(gameChosen)
 }
 
 function playGame(e){
@@ -79,7 +79,13 @@ function playGame(e){
         difficultModeGame();
     }
 
-    playerName.innerHTML = userName.value
+    checkName()
+}
+
+function checkName() {
+    if (userName.value){
+        playerName.innerHTML = userName.value
+    }
 }
 
 function classicModeGame() {

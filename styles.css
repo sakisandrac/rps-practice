@@ -27,12 +27,12 @@ main {
     /* justify-content: center; */
 }
 
-#choose-header {
+#chooseHeader {
     display: flex;
     justify-content: center;
 }
 
-#middle-container {
+#middleContainer {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -53,7 +53,7 @@ main {
     background-color: rgba(255, 255, 255, .9);
 }
 
-#main-container {
+#mainContainer {
     display: flex;
     justify-content: space-between;
 }
@@ -68,6 +68,24 @@ main {
     text-align: center;
     color:antiquewhite;
     text-shadow: 3px 2px 2px black;
+
+}
+
+/* GAME VIEW */
+.icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 100px 20px;
+   
+}
+.icon {
+    height: 8rem;
+    cursor: pointer;
+}
+
+.icon:hover {
+    height: 9rem;
 
 }
 

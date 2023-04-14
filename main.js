@@ -21,7 +21,7 @@ let playerName = document.querySelector('#playerName')
 classicMode.addEventListener('click', login);
 difficultMode.addEventListener('click',login);
 playButton.addEventListener('click', playGame);
-iconContainer.addEventListener('click', chooseFighter);
+iconContainer.addEventListener('click', function(e){takeTurn(e)});
 
 // Data Model
 // Psuedocode:
@@ -32,12 +32,17 @@ iconContainer.addEventListener('click', chooseFighter);
         //check winner if draw is false, wins will be pushed into either player.wins or computer.wins
     //player and computer wins display will update based on the number of wins in the player's data models.
     let game;
+    let fighters = {
+        0: 'rock',
+        1: 'paper',
+        2: 'scissors'
+    }
 
 // Functions
-function createPlayer(name = 'Player') {
+function createPlayer(name, token = '👱') {
     return {
         name,
-        token: '👱',
+        token,
         wins: 0
     }
 }
@@ -50,18 +55,33 @@ function createGame(player1, player2, mode) {
     }
 }
 
-// function playGame(modeChosen) {
-//     let player1 = createPlayer(userName.value)
-//     let player2 = createPlayer('Computer')
-    
-//     createGame(player1, player2, mode)
-// }
-
-function takeTurn(){
-
+function takeTurn(e){
+    let playerChoice = chooseFighter(e)
+    let computerChoice = computeFighter()
+    console.log(playerChoice)
+    console.log(computerChoice)
 }
 
-function checkWinner(){
+function chooseFighter(e){
+if (e.target.id === 'paperIcon'){
+    return 'paper'
+   }
+
+   if (e.target.id === 'rockIcon'){
+    return 'rock'
+   }
+
+   if (e.target.id === 'scissorsIcon'){
+    return 'scissors'
+   }
+}  
+
+function computeFighter() {
+    let randIndex = Math.floor(Math.random() * 3)
+    return fighters[randIndex]
+}
+
+function checkWinner() {
 
 }
 
@@ -81,17 +101,23 @@ function login(e){
     for (let game of gameBoxes){
         game.classList.add('hidden')
     };
-    game = createGame()
-    selectGameMode(e);
+
+   createDataModel(e);
+}
+
+function createDataModel(e) {
+    let player1 = createPlayer()
+    let player2 = createPlayer('Computer', '💻')
+    game = createGame(player1, player2, selectGameMode(e))
 }
 
 function selectGameMode(e) {
     if (e.target.id === 'classic' || e.target.parentElement.id === 'classic'){
-        game.mode = 'classic';
+        return 'classic';
     } 
 
     if (e.target.id === 'difficult' || e.target.parentElement.id === 'difficult'){
-        game.mode = 'difficult';
+        return 'difficult';
     }
 }
 
@@ -103,16 +129,15 @@ function checkGameChosen() {
     }
 }
 
-function checkName() {
-    if (userName.value){
-        playerName.innerHTML = userName.value
-    }
-}
-
 function playGame(e){
     e.preventDefault();
+    displayName();
     checkGameChosen();
-    checkName();
+}
+
+function displayName() {
+    game.player1.name = userName.value;
+    playerName.innerHTML = game.player1.name;
 }
 
 // Classic Mode 
@@ -127,20 +152,6 @@ function classicModeGame() {
         }
 }
 
-function chooseFighter(e) {
-   if (e.target.id === 'paperIcon'){
-    console.log('paper')
-   }
-
-   if (e.target.id === 'rockIcon'){
-    console.log('rock')
-   }
-
-   if (e.target.id === 'scissorsIcon'){
-    console.log('scissors')
-   }
-
-}
 
 // Difficult Mode 
 function difficultModeGame() {

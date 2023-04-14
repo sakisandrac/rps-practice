@@ -6,16 +6,22 @@ let gameBoxes = document.querySelectorAll('.games');
 let chooseMsg = document.querySelector('#chooseMsg');
 let iconContainer = document.querySelector('.icon-container');
 let loginView = document.querySelector('.login-view')
+let playButton = document.querySelector('#play');
 let icons = {
     paper: document.querySelector('#paperIcon'),
     rock: document.querySelector('#rockIcon'),
     scissors: document.querySelector('#scissorsIcon')
 }
+let gameChosen;
+let userName = document.querySelector('#nameInput')
+let playerName = document.querySelector('#playerName')
+
 
 // Event Listeners
-classicMode.addEventListener('click', classicModeGame);
-difficultMode.addEventListener('click', difficultModeGame);
-iconContainer.addEventListener('click', chooseFighter)
+classicMode.addEventListener('click', login);
+difficultMode.addEventListener('click',login);
+iconContainer.addEventListener('click', chooseFighter);
+playButton.addEventListener('click', playGame)
 
 // Data Model
 // let game = {
@@ -46,10 +52,42 @@ function createGame(game, player1, player2) {
     }
 }
 // Classic Mode 
-function classicModeGame() {
+function login(e){
+    loginView.classList.remove('hidden');
     chooseMsg.innerHTML = 'Enter Your Name & Choose Avatar'
-    loginView.classList.remove('hidden')
-    // gameView.classList.remove('hidden')
+
+    for (let game of gameBoxes){
+        game.classList.add('hidden')
+    };
+
+    if (e.target.id || e.target.parentElement.id === 'classic'){
+        gameChosen = 'classic';
+    } 
+
+    if (e.target.id || e.target.parentElement.id === 'difficult'){
+        gameChosen = 'difficult';
+    }
+
+}
+
+function playGame(e){
+    e.preventDefault();
+
+    if (gameChosen === 'classic'){
+        classicModeGame();
+    } if (gameChosen === 'difficult'){
+        difficultModeGame();
+    }
+
+    playerName.innerHTML = userName.value
+}
+
+function classicModeGame() {
+    gameChosen = 'classic';
+    chooseMsg.innerHTML = 'Choose Your Fighter'
+
+    loginView.classList.add('hidden')
+    gameView.classList.remove('hidden')
     for (let game of gameBoxes){
             game.classList.add('hidden')
         }

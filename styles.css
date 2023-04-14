@@ -101,6 +101,20 @@ input {
     font-size: 4.5rem;
 }
 
+#play {
+    border: none;
+    background-color: rgb(229, 130, 146);
+    padding: 10px 50px;
+    margin: 30px;
+    font-size: 1rem;
+    font-family: 'Abril Fatface', cursive;
+}
+
+#play:hover {
+    background-color: antiquewhite;
+    color:  rgba(38, 38, 38, 0.8)
+}
+
 /* GAME VIEW */
 .icon-container {
     display: flex;

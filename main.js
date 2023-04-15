@@ -165,16 +165,14 @@ function checkDraw(player, computer) {
 function playGame(e){
         e.preventDefault();
         displayName();
-        checkGameChosen();
+        checkGameChosen(game.mode);
         toggleHidden('remove', [changeGameBtn])
 }
 
-function checkGameChosen() {
-    if (game.mode === 'classic'){
-        console.log('classic mode checkGame')
+function checkGameChosen(mode) {
+    if (mode === 'classic'){
         classicModeView();
-    } if (game.mode === 'difficult'){
-        console.log('difficult mode checkGame')
+    } if (mode === 'difficult'){
         difficultModeView();
     }
 }
@@ -185,7 +183,6 @@ function resetGame() {
     if (game.mode === 'difficult'){
        loadDifficultIcons();
     }
-    
 }
 
 function changeGames(){
@@ -246,7 +243,6 @@ function classicModeView() {
 }
 
 function difficultModeView() {
-    console.log('in difficult view')
     chooseMsg.innerHTML = 'Choose Your Fighter';
     toggleHidden('add', [loginView, ...gameBoxes]);
     toggleHidden('remove', [gameView, ...difficultIcons]);

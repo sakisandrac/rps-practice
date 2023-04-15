@@ -11,6 +11,8 @@ let playButton = document.querySelector('#play');
 let gameChosen;
 let userName = document.querySelector('#nameInput')
 let playerName = document.querySelector('#playerName')
+let winCountPlayer = document.querySelector('#playerWins');
+let winCountComp = document.querySelector('#computerWins');
 // let fighters = {
 //     0: 'rock'
 //     1: 'paper',
@@ -58,8 +60,7 @@ function createGame(player1, player2, mode) {
 function takeTurn(e){
     let playerChoice = game.player1.fighter[chooseFighter(e)];
     let computerChoice = game.player2.fighter[computeFighter()];
-    
-    // console.log(game.player1.fighter.find(item => item.icon === playerChoice.icon))
+
     console.log(playerChoice.icon, computerChoice.icon)
     displayResults(playerChoice, computerChoice)
 }
@@ -74,30 +75,33 @@ function getResults(player1, player2) {
 
 function displayResults(player1, player2) {
     chooseMsg.innerHTML = getResults(player1, player2);
-    console.log(player1.img, player2.img)
+ 
     iconContainer.innerHTML = `
         <img src="${player1.img}" class="icon" alt"${player1.icon} icon">
         <img src="${player2.img}" class="icon" alt"${player2.icon} icon">
-    `
+     `
+
+    playerWins.innerHTML = game.player1.wins
+    computerWins.innerHTML = game.player2.wins
 }
 
 function chooseFighter(e){
     if (e.target.id === 'rockIcon'){
-            return 0
+            return 0;
        }
 
     if (e.target.id === 'paperIcon'){
-            return 1
+            return 1;
         }
 
    if (e.target.id === 'scissorsIcon'){
-            return 2
+            return 2;
         }
 }  
 
 function computeFighter() {
     if (game.mode === 'classic'){
-    return Math.floor(Math.random() * 3)
+        return Math.floor(Math.random() * 3);
     }
 }
 
@@ -106,21 +110,27 @@ function checkWinner(player, computer) {
 
     if (player === 'rock' && computer === 'paper'){
             winner = game.player2.name
+            game.player2.wins += 1
     }
     if (player === 'rock' && computer === 'scissors'){
             winner = game.player1.name
+            game.player1.wins += 1
     }
     if (player === 'paper' && computer === 'rock'){
             winner = game.player1.name
+            game.player1.wins += 1
     }
     if (player === 'paper' && computer === 'scissors'){
             winner = game.player2.name
+            game.player2.wins += 1
     }
     if (player === 'scissors' && computer === 'rock'){
             winner = game.player2.name
+            game.player2.wins += 1
     }
     if (player === 'scissors' && computer === 'paper'){
             winner = game.player1.name
+            game.player1.wins += 1
     }
   
     return `${winner} wins!!`

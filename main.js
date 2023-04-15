@@ -22,14 +22,9 @@ iconContainer.addEventListener('click', function(e){
     setTimeout(resetGame, 1000);
 });
 
-// Data Model
+// Data Models
 let game;
 let gameChosen;
-let fighters = [
-    {icon: 'rock', img: './assets/happy-rocks.png'},
-    {icon: 'paper', img: './assets/happy-paper.png'},
-    {icon: 'scissors', img: './assets/happy-paper.png'}
-]
 
 // Game Functions
 function createPlayer(name, token = '👱') {
@@ -81,17 +76,7 @@ function displayResults(player1, player2) {
 }
 
 function chooseFighter(e){
-    if (e.target.id === 'rockIcon'){
-            return 0;
-       }
-
-    if (e.target.id === 'paperIcon'){
-            return 1;
-        }
-
-   if (e.target.id === 'scissorsIcon'){
-            return 2;
-        }
+    return parseInt(e.target.id)
 }  
 
 function computeFighter() {
@@ -111,6 +96,7 @@ function checkWinner(player, computer) {
             winner = game.player1.name;
             game.player1.wins += 1;
     }
+    
     if (player === 'paper' && computer === 'rock'){
             winner = game.player1.name;
             game.player1.wins += 1;

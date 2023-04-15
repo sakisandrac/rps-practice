@@ -5,6 +5,7 @@ let gameView = document.querySelector('.game-view');
 let gameBoxes = document.querySelectorAll('.games');
 let chooseMsg = document.querySelector('#chooseMsg');
 let iconContainer = document.querySelector('.icon-container');
+let resetIcons = iconContainer.innerHTML
 let loginView = document.querySelector('.login-view')
 let playButton = document.querySelector('#play');
 let gameChosen;
@@ -147,9 +148,12 @@ function checkGameChosen() {
 
 let reset = document.querySelector('#temp')
 reset.addEventListener('click', resetGame)
+
 function resetGame() {
-    displayName();
-    checkGameChosen();
+    iconContainer.innerHTML = resetIcons;
+    chooseMsg.innerHTML = 'Choose Your Fighter'
+    // displayName();
+    // checkGameChosen();
 }
 
 // Login Page

@@ -1,6 +1,7 @@
 // DOM Variables
 let classicMode = document.querySelector('#classic');
 let difficultMode = document.querySelector('#difficult');
+// let chooseGameView = document.querySelector('.choose-view');
 let gameView = document.querySelector('.game-view');
 let gameBoxes = document.querySelectorAll('.games');
 let chooseMsg = document.querySelector('#chooseMsg');
@@ -27,6 +28,7 @@ changeGameBtn.addEventListener('click', changeGames)
 
 // Data Models
 let game;
+let changedGames = false;
 
 // Game Functions
 function createPlayer(name, token = '👱') {
@@ -80,7 +82,6 @@ function displayResults(player1, player2) {
 }
 
 function chooseFighter(e){
-    console.log(e.target.id)
     return parseInt(e.target.id)
 }  
 
@@ -162,16 +163,18 @@ function checkDraw(player, computer) {
 }
 
 function playGame(e){
-    e.preventDefault();
-    displayName();
-    checkGameChosen();
-    toggleHidden('remove', [changeGameBtn])
+        e.preventDefault();
+        displayName();
+        checkGameChosen();
+        toggleHidden('remove', [changeGameBtn])
 }
 
 function checkGameChosen() {
     if (game.mode === 'classic'){
+        console.log('classic mode checkGame')
         classicModeView();
     } if (game.mode === 'difficult'){
+        console.log('difficult mode checkGame')
         difficultModeView();
     }
 }
@@ -180,29 +183,31 @@ function resetGame() {
     chooseMsg.innerHTML = 'Choose Your Fighter';
     iconContainer.innerHTML = resetIcons;
     if (game.mode === 'difficult'){
-        iconContainer.innerHTML = `
-        <img class="icon" id="0" src="./assets/happy-paper.png" alt="paper icon">
-        <img class="icon" id="1" src="./assets/happy-rocks.png" alt="rock icon">
-        <img class="icon" id="2" src="./assets/happy-scissors.png" alt="scissors icon">
-        <img class="icon difficult-icon" id="3" src="./assets/happy-heart.png" alt="heart icon">
-        <img class="icon difficult-icon" id="4" src="./assets/happy-star.png" alt="star icon">
-        `
+       loadDifficultIcons();
     }
     
 }
 
 function changeGames(){
-
+    changedGames = true;
+    toggleHidden('remove', gameBoxes);
+    toggleHidden('add', [gameView]);
 }
 
 // Login Page
 function login(e){
-    chooseMsg.innerHTML = 'Enter Your Name & Choose Avatar';
+    if (!changedGames){
+        chooseMsg.innerHTML = 'Enter Your Name & Choose Avatar';
 
-    toggleHidden('remove', [loginView]);
-    toggleHidden('add', gameBoxes);
+        toggleHidden('remove', [loginView]);
+        toggleHidden('add', gameBoxes);
 
-    createDataModel(e);
+        createDataModel(e);
+    } else {
+        game.mode = selectGameMode(e)
+        playGame(e);
+
+    }
 }
 
 function createDataModel(e) {
@@ -235,14 +240,33 @@ function toggleHidden(select, elements){
 // Game Views 
 function classicModeView() {
     chooseMsg.innerHTML = 'Choose Your Fighter';
+    loadClassicIcons();
     toggleHidden('add', [loginView, ...gameBoxes]);
     toggleHidden('remove', [gameView]);
 }
 
 function difficultModeView() {
+    console.log('in difficult view')
     chooseMsg.innerHTML = 'Choose Your Fighter';
     toggleHidden('add', [loginView, ...gameBoxes]);
     toggleHidden('remove', [gameView, ...difficultIcons]);
+    loadDifficultIcons()
+
 }
 
+function loadDifficultIcons() {
+    iconContainer.innerHTML = `
+        <img class="icon" id="0" src="./assets/happy-paper.png" alt="paper icon">
+        <img class="icon" id="1" src="./assets/happy-rocks.png" alt="rock icon">
+        <img class="icon" id="2" src="./assets/happy-scissors.png" alt="scissors icon">
+        <img class="icon difficult-icon" id="3" src="./assets/happy-heart.png" alt="heart icon">
+        <img class="icon difficult-icon" id="4" src="./assets/happy-star.png" alt="star icon">
+        `
+}
 
+function loadClassicIcons() {
+    iconContainer.innerHTML = `
+        <img class="icon" id="0" src="./assets/happy-paper.png" alt="paper icon">
+        <img class="icon" id="1" src="./assets/happy-rocks.png" alt="rock icon">
+        <img class="icon" id="2" src="./assets/happy-scissors.png" alt="scissors icon">`
+}

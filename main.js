@@ -88,32 +88,61 @@ function computeFighter() {
 function checkWinner(player, computer) {
     let winner;
 
-    if (player === 'rock' && computer === 'paper'){
-            winner = game.player2.name;
-            game.player2.wins += 1;
-    }
     if (player === 'rock' && computer === 'scissors'){
             winner = game.player1.name;
             game.player1.wins += 1;
-    }
+        }
+
+    if (player === 'rock' && computer === 'heart'){
+        winner = game.player1.name;
+        game.player1.wins += 1;
+        }
     
     if (player === 'paper' && computer === 'rock'){
             winner = game.player1.name;
             game.player1.wins += 1;
-    }
-    if (player === 'paper' && computer === 'scissors'){
-            winner = game.player2.name;
-            game.player2.wins += 1;
-    }
-    if (player === 'scissors' && computer === 'rock'){
-            winner = game.player2.name;
-            game.player2.wins += 1;
-    }
+        }
+
+    if (player === 'paper' && computer === 'star'){
+            winner = game.player1.name;
+            game.player1.wins += 1;
+        }
+
     if (player === 'scissors' && computer === 'paper'){
             winner = game.player1.name;
             game.player1.wins += 1;
-    }
+        }
+
+    if (player === 'scissors' && computer === 'heart'){
+            winner = game.player1.name;
+            game.player1.wins += 1;
+        }
+
+    if (player === 'heart' && computer === 'paper'){
+            winner = game.player1.name;
+            game.player1.wins += 1;
+        }
   
+    if (player === 'heart' && computer === 'star'){
+            winner = game.player1.name;
+            game.player1.wins += 1;
+        }   
+
+    if (player === 'star' && computer === 'scissors'){
+            winner = game.player1.name;
+            game.player1.wins += 1;
+        }
+
+    if (player === 'star' && computer === 'rock'){
+            winner = game.player1.name;
+            game.player1.wins += 1;
+        }
+    
+    else {
+        winner = game.player2.name;
+            game.player2.wins += 1;
+    }
+
     return `${winner} wins!!`;
 }
 
@@ -173,6 +202,12 @@ function displayName() {
     playerName.innerHTML = game.player1.name;
 }
 
+function toggleHidden(select, elements){
+    for (let i=0; i < elements.length; i++){
+    elements[i].classList[select]('hidden');
+    }
+}
+
 // Game Views 
 function classicModeView() {
     chooseMsg.innerHTML = 'Choose Your Fighter';
@@ -181,11 +216,9 @@ function classicModeView() {
 }
 
 function difficultModeView() {
-    console.log('difficult!');
+    chooseMsg.innerHTML = 'Choose Your Fighter';
+    toggleHidden('add', [loginView, ...gameBoxes]);
+    toggleHidden('remove', [gameView], );
 }
 
-function toggleHidden(select, elements){
-    for (let i=0; i < elements.length; i++){
-    elements[i].classList[select]('hidden');
-    }
-}
+

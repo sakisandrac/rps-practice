@@ -122,6 +122,7 @@ input {
 /* GAME VIEW */
 .icon-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     margin: 100px 20px;
@@ -129,11 +130,13 @@ input {
 }
 .icon {
     height: 8rem;
+    font-size: 8rem;
     cursor: pointer;
 }
 
 .icon:hover {
     height: 9rem;
+    font-size: 9rem;
 }
 
 .hidden {

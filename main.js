@@ -5,30 +5,26 @@ let gameView = document.querySelector('.game-view');
 let gameBoxes = document.querySelectorAll('.games');
 let chooseMsg = document.querySelector('#chooseMsg');
 let iconContainer = document.querySelector('.icon-container');
-let resetIcons = iconContainer.innerHTML
 let loginView = document.querySelector('.login-view')
 let playButton = document.querySelector('#play');
-let gameChosen;
 let userName = document.querySelector('#nameInput')
 let playerName = document.querySelector('#playerName')
 let winCountPlayer = document.querySelector('#playerWins');
 let winCountComp = document.querySelector('#computerWins');
-// let fighters = {
-//     0: 'rock'
-//     1: 'paper',
-//     2: 'scissors'
-// }
-
-
+let resetIcons = iconContainer.innerHTML;
 
 // Event Listeners
 classicMode.addEventListener('click', login);
 difficultMode.addEventListener('click',login);
 playButton.addEventListener('click', playGame);
-iconContainer.addEventListener('click', function(e){takeTurn(e)});
+iconContainer.addEventListener('click', function(e){
+    takeTurn(e);
+    setTimeout(resetGame, 1000)
+});
 
 // Data Model
 let game;
+let gameChosen;
 let fighters = [
     {icon: 'rock', img: './assets/happy-rocks.png'},
     {icon: 'paper', img: './assets/happy-paper.png'},
@@ -61,7 +57,6 @@ function takeTurn(e){
     let playerChoice = game.player1.fighter[chooseFighter(e)];
     let computerChoice = game.player2.fighter[computeFighter()];
 
-    console.log(playerChoice.icon, computerChoice.icon)
     displayResults(playerChoice, computerChoice)
 }
 
@@ -156,14 +151,9 @@ function checkGameChosen() {
     }
 }
 
-let reset = document.querySelector('#temp')
-reset.addEventListener('click', resetGame)
-
 function resetGame() {
     iconContainer.innerHTML = resetIcons;
     chooseMsg.innerHTML = 'Choose Your Fighter'
-    // displayName();
-    // checkGameChosen();
 }
 
 // Login Page

@@ -12,7 +12,7 @@
     <header>
         <h1>ROCK PAPER SCISSORS</h1>
     </header>
-    <div id="main-container">
+    <div id="mainContainer">
         <div class="players">
             <section id="player1">
                 <h2>Player</h2>
@@ -20,10 +20,10 @@
             </section>
         </div>
         <main>
-            <div id="choose-header">
-                <h2>Choose Your Game!</h2>
+            <div id="chooseHeader">
+                <h2 id="chooseMsg">Choose Your Game!</h2>
             </div>
-            <div id="middle-container">
+            <div class="choose-view" id="middleContainer">
                 <div class="games">
                     <section id="classic">
                         <h3>CLASSIC MODE:</h3>
@@ -40,6 +40,20 @@
                         <h4>&#127800;&nbsp;&nbsp;scissors > paper & heart&nbsp;&nbsp;&#127800;</h4>
                         <h4>&#127800;&nbsp;&nbsp;heart > paper & star&nbsp;&nbsp;&#127800;</h4>
                         <h4>&#127800;&nbsp;&nbsp;star > scissors & rock&nbsp;&nbsp;&#127800;</h4>
+                    </section>
+                </div>
+                <div class="game-view hidden" id="classicGame">
+                    <section class="icon-container">
+                        <img class="icon" id="paperIcon" src="./assets/happy-paper.png" alt="paper icon">
+                        <img class="icon" id="rockIcon" src="./assets/happy-rocks.png" alt="rock icon">
+                        <img class="icon" id="scissorsIcon" src="./assets/happy-scissors.png" alt="scissors icon">
+                    </section>
+                </div>
+                <div class="game-view hidden" id="diffucultGame">
+                    <section class="icon-container">
+                        <img class="icon" id="paperIcon2" src="./assets/happy-paper.png" alt="paper icon">
+                        <img class="icon" id="rockIcon2" src="./assets/happy-rocks.png" alt="rock icon">
+                        <img class="icon" id="scissorsIcon2" src="./assets/happy-scissors.png" alt="scissors icon">
                     </section>
                 </div>
             </div>

@@ -1,20 +1,19 @@
 // DOM Variables
-let classicMode = document.querySelector('#classic');
-let difficultMode = document.querySelector('#difficult');
-// let chooseGameView = document.querySelector('.choose-view');
-let gameView = document.querySelector('.game-view');
-let gameBoxes = document.querySelectorAll('.games');
-let chooseMsg = document.querySelector('#chooseMsg');
-let iconContainer = document.querySelector('.icon-container');
-let loginView = document.querySelector('.login-view')
-let playButton = document.querySelector('#play');
-let userName = document.querySelector('#nameInput');
-let playerName = document.querySelector('#playerName');
-let winCountPlayer = document.querySelector('#playerWins');
-let winCountComp = document.querySelector('#computerWins');
-let difficultIcons = document.querySelectorAll('.difficult-icon');
-let changeGameBtn = document.querySelector('#changeGame');
-let resetIcons = iconContainer.innerHTML;
+var classicMode = document.querySelector('#classic');
+var difficultMode = document.querySelector('#difficult');
+var gameView = document.querySelector('.game-view');
+var gameBoxes = document.querySelectorAll('.games');
+var chooseMsg = document.querySelector('#chooseMsg');
+var iconContainer = document.querySelector('.icon-container');
+var loginView = document.querySelector('.login-view')
+var playButton = document.querySelector('#play');
+var userName = document.querySelector('#nameInput');
+var playerName = document.querySelector('#playerName');
+var winCountPlayer = document.querySelector('#playerWins');
+var winCountComp = document.querySelector('#computerWins');
+var difficultIcons = document.querySelectorAll('.difficult-icon');
+var changeGameBtn = document.querySelector('#changeGame');
+var resetIcons = iconContainer.innerHTML;
 
 // Event Listeners
 classicMode.addEventListener('click', login);
@@ -27,8 +26,8 @@ iconContainer.addEventListener('click', function(e){
 changeGameBtn.addEventListener('click', changeGames)
 
 // Data Models
-let game;
-let changedGames = false;
+var game;
+var changedGames = false;
 
 // Game Functions
 function createPlayer(name, token = '👱') {
@@ -55,9 +54,10 @@ function createGame(player1, player2, mode) {
 }
 
 function takeTurn(e){
-    let playerChoice = game.player1.fighter[chooseFighter(e)];
-    let computerChoice = game.player2.fighter[computeFighter()];
-    console.log(playerChoice, computerChoice)
+    var playerChoice = game.player1.fighter[chooseFighter(e)];
+
+    var computerChoice = game.player2.fighter[computeFighter()];
+
     displayResults(playerChoice, computerChoice);
 }
 
@@ -96,7 +96,7 @@ function computeFighter() {
 }
 
 function checkWinner(player, computer) {
-    let winner;
+    var winner;
 
     if (player === 'rock' && computer === 'scissors'){
             winner = game.player1.name;
@@ -179,7 +179,7 @@ function checkGameChosen(mode) {
 
 function resetGame() {
     chooseMsg.innerHTML = 'Choose Your Fighter';
-    iconContainer.innerHTML = resetIcons;
+    loadClassicIcons();
     if (game.mode === 'difficult'){
        loadDifficultIcons();
     }
@@ -208,8 +208,8 @@ function login(e){
 }
 
 function createDataModel(e) {
-    let player1 = createPlayer();
-    let player2 = createPlayer('Computer', '💻');
+    var player1 = createPlayer();
+    var player2 = createPlayer('Computer', '💻');
     game = createGame(player1, player2, selectGameMode(e));
 }
 
@@ -229,7 +229,7 @@ function displayName() {
 }
 
 function toggleHidden(select, elements){
-    for (let i=0; i < elements.length; i++){
+    for (var i=0; i < elements.length; i++){
     elements[i].classList[select]('hidden');
     }
 }
@@ -261,8 +261,5 @@ function loadDifficultIcons() {
 }
 
 function loadClassicIcons() {
-    iconContainer.innerHTML = `
-        <img class="icon" id="0" src="./assets/happy-paper.png" alt="paper icon">
-        <img class="icon" id="1" src="./assets/happy-rocks.png" alt="rock icon">
-        <img class="icon" id="2" src="./assets/happy-scissors.png" alt="scissors icon">`
+    iconContainer.innerHTML = resetIcons;
 }

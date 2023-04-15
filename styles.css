@@ -104,7 +104,7 @@ input {
     font-size: 4.5rem;
 }
 
-#play {
+button {
     border: none;
     background-color: rgb(229, 130, 146);
     padding: 10px 50px;
@@ -114,7 +114,7 @@ input {
     cursor: pointer;
 }
 
-#play:hover {
+button:hover {
     background-color: antiquewhite;
     color:  rgba(38, 38, 38, 0.8)
 }
@@ -122,6 +122,7 @@ input {
 /* GAME VIEW */
 .icon-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     margin: 100px 20px;
@@ -129,11 +130,13 @@ input {
 }
 .icon {
     height: 8rem;
+    font-size: 8rem;
     cursor: pointer;
 }
 
 .icon:hover {
     height: 9rem;
+    font-size: 9rem;
 }
 
 .hidden {

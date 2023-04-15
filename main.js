@@ -7,8 +7,8 @@ let chooseMsg = document.querySelector('#chooseMsg');
 let iconContainer = document.querySelector('.icon-container');
 let loginView = document.querySelector('.login-view')
 let playButton = document.querySelector('#play');
-let userName = document.querySelector('#nameInput')
-let playerName = document.querySelector('#playerName')
+let userName = document.querySelector('#nameInput');
+let playerName = document.querySelector('#playerName');
 let winCountPlayer = document.querySelector('#playerWins');
 let winCountComp = document.querySelector('#computerWins');
 let resetIcons = iconContainer.innerHTML;
@@ -19,7 +19,7 @@ difficultMode.addEventListener('click',login);
 playButton.addEventListener('click', playGame);
 iconContainer.addEventListener('click', function(e){
     takeTurn(e);
-    setTimeout(resetGame, 1000)
+    setTimeout(resetGame, 1000);
 });
 
 // Data Model
@@ -57,14 +57,14 @@ function takeTurn(e){
     let playerChoice = game.player1.fighter[chooseFighter(e)];
     let computerChoice = game.player2.fighter[computeFighter()];
 
-    displayResults(playerChoice, computerChoice)
+    displayResults(playerChoice, computerChoice);
 }
 
 function getResults(player1, player2) {
     if (checkDraw(player1.icon, player2.icon)){
-        return 'Draw'
+        return 'Draw';
     } else {
-        return checkWinner(player1.icon, player2.icon)
+        return checkWinner(player1.icon, player2.icon);
     }
 }
 
@@ -76,8 +76,8 @@ function displayResults(player1, player2) {
         <img src="${player2.img}" class="icon" alt"${player2.icon} icon">
      `
 
-    playerWins.innerHTML = game.player1.wins
-    computerWins.innerHTML = game.player2.wins
+    playerWins.innerHTML = `Wins: <p>${game.player1.wins}<p>`
+    computerWins.innerHTML = `Wins: <p>${game.player2.wins}<p>`
 }
 
 function chooseFighter(e){
@@ -104,31 +104,31 @@ function checkWinner(player, computer) {
     let winner;
 
     if (player === 'rock' && computer === 'paper'){
-            winner = game.player2.name
-            game.player2.wins += 1
+            winner = game.player2.name;
+            game.player2.wins += 1;
     }
     if (player === 'rock' && computer === 'scissors'){
-            winner = game.player1.name
-            game.player1.wins += 1
+            winner = game.player1.name;
+            game.player1.wins += 1;
     }
     if (player === 'paper' && computer === 'rock'){
-            winner = game.player1.name
-            game.player1.wins += 1
+            winner = game.player1.name;
+            game.player1.wins += 1;
     }
     if (player === 'paper' && computer === 'scissors'){
-            winner = game.player2.name
-            game.player2.wins += 1
+            winner = game.player2.name;
+            game.player2.wins += 1;
     }
     if (player === 'scissors' && computer === 'rock'){
-            winner = game.player2.name
-            game.player2.wins += 1
+            winner = game.player2.name;
+            game.player2.wins += 1;
     }
     if (player === 'scissors' && computer === 'paper'){
-            winner = game.player1.name
-            game.player1.wins += 1
+            winner = game.player1.name;
+            game.player1.wins += 1;
     }
   
-    return `${winner} wins!!`
+    return `${winner} wins!!`;
 }
 
 function checkDraw(player, computer) {
@@ -153,25 +153,23 @@ function checkGameChosen() {
 
 function resetGame() {
     iconContainer.innerHTML = resetIcons;
-    chooseMsg.innerHTML = 'Choose Your Fighter'
+    chooseMsg.innerHTML = 'Choose Your Fighter';
 }
 
 // Login Page
 function login(e){
-    chooseMsg.innerHTML = 'Enter Your Name & Choose Avatar'
+    chooseMsg.innerHTML = 'Enter Your Name & Choose Avatar';
 
-    loginView.classList.remove('hidden');
-    for (let game of gameBoxes){
-        game.classList.add('hidden')
-    };
+    toggleHidden('remove', [loginView]);
+    toggleHidden('add', gameBoxes);
 
-   createDataModel(e);
+    createDataModel(e);
 }
 
 function createDataModel(e) {
-    let player1 = createPlayer()
-    let player2 = createPlayer('Computer', '💻')
-    game = createGame(player1, player2, selectGameMode(e))
+    let player1 = createPlayer();
+    let player2 = createPlayer('Computer', '💻');
+    game = createGame(player1, player2, selectGameMode(e));
 }
 
 function selectGameMode(e) {
@@ -190,24 +188,18 @@ function displayName() {
 }
 
 // Game Views 
-
 function classicModeView() {
-    chooseMsg.innerHTML = 'Choose Your Fighter'
-    toggleHidden('add', [loginView])
-    toggleHidden('remove', [gameView])
-    // loginView.classList.add('hidden')
-    // gameView.classList.remove('hidden')
-    for (let game of gameBoxes){
-            game.classList.add('hidden')
-        }
+    chooseMsg.innerHTML = 'Choose Your Fighter';
+    toggleHidden('add', [loginView, ...gameBoxes]);
+    toggleHidden('remove', [gameView]);
 }
 
 function difficultModeView() {
-    console.log('difficult!')
+    console.log('difficult!');
 }
 
 function toggleHidden(select, elements){
     for (let i=0; i < elements.length; i++){
-    elements[i].classList[select]('hidden')
+    elements[i].classList[select]('hidden');
     }
 }

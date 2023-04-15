@@ -104,7 +104,7 @@ input {
     font-size: 4.5rem;
 }
 
-#play {
+button {
     border: none;
     background-color: rgb(229, 130, 146);
     padding: 10px 50px;
@@ -114,7 +114,7 @@ input {
     cursor: pointer;
 }
 
-#play:hover {
+button:hover {
     background-color: antiquewhite;
     color:  rgba(38, 38, 38, 0.8)
 }

@@ -11,6 +11,8 @@ let userName = document.querySelector('#nameInput');
 let playerName = document.querySelector('#playerName');
 let winCountPlayer = document.querySelector('#playerWins');
 let winCountComp = document.querySelector('#computerWins');
+let difficultIcons = document.querySelectorAll('.difficult-icon');
+let changeGameBtn = document.querySelector('#changeGame');
 let resetIcons = iconContainer.innerHTML;
 
 // Event Listeners
@@ -21,10 +23,10 @@ iconContainer.addEventListener('click', function(e){
     takeTurn(e);
     setTimeout(resetGame, 1000);
 });
+changeGameBtn.addEventListener('click', changeGames)
 
 // Data Models
 let game;
-let gameChosen;
 
 // Game Functions
 function createPlayer(name, token = '👱') {
@@ -35,7 +37,9 @@ function createPlayer(name, token = '👱') {
         fighter: [
             {icon: 'rock', img: './assets/happy-rocks.png'},
             {icon: 'paper', img: './assets/happy-paper.png'},
-            {icon: 'scissors', img: './assets/happy-scissors.png'}
+            {icon: 'scissors', img: './assets/happy-scissors.png'},
+            {icon: 'heart', img: './assets/happy-heart.png'},
+            {icon: 'heart', img: './assets/happy-star.png'}
         ]
     }
 }
@@ -51,7 +55,7 @@ function createGame(player1, player2, mode) {
 function takeTurn(e){
     let playerChoice = game.player1.fighter[chooseFighter(e)];
     let computerChoice = game.player2.fighter[computeFighter()];
-
+    console.log(playerChoice, computerChoice)
     displayResults(playerChoice, computerChoice);
 }
 
@@ -76,12 +80,17 @@ function displayResults(player1, player2) {
 }
 
 function chooseFighter(e){
+    console.log(e.target.id)
     return parseInt(e.target.id)
 }  
 
 function computeFighter() {
     if (game.mode === 'classic'){
         return Math.floor(Math.random() * 3);
+    }
+
+    if (game.mode === 'difficult'){
+        return Math.floor(Math.random() * 5);
     }
 }
 
@@ -93,54 +102,54 @@ function checkWinner(player, computer) {
             game.player1.wins += 1;
         }
 
-    if (player === 'rock' && computer === 'heart'){
+    else if (player === 'rock' && computer === 'heart'){
         winner = game.player1.name;
         game.player1.wins += 1;
         }
     
-    if (player === 'paper' && computer === 'rock'){
+    else if (player === 'paper' && computer === 'rock'){
             winner = game.player1.name;
             game.player1.wins += 1;
         }
 
-    if (player === 'paper' && computer === 'star'){
+    else if (player === 'paper' && computer === 'star'){
             winner = game.player1.name;
             game.player1.wins += 1;
         }
 
-    if (player === 'scissors' && computer === 'paper'){
+    else if (player === 'scissors' && computer === 'paper'){
             winner = game.player1.name;
             game.player1.wins += 1;
         }
 
-    if (player === 'scissors' && computer === 'heart'){
+    else if (player === 'scissors' && computer === 'heart'){
             winner = game.player1.name;
             game.player1.wins += 1;
         }
 
-    if (player === 'heart' && computer === 'paper'){
+    else if (player === 'heart' && computer === 'paper'){
             winner = game.player1.name;
             game.player1.wins += 1;
         }
   
-    if (player === 'heart' && computer === 'star'){
+    else if (player === 'heart' && computer === 'star'){
             winner = game.player1.name;
             game.player1.wins += 1;
         }   
 
-    if (player === 'star' && computer === 'scissors'){
+    else if (player === 'star' && computer === 'scissors'){
             winner = game.player1.name;
             game.player1.wins += 1;
         }
 
-    if (player === 'star' && computer === 'rock'){
+    else if (player === 'star' && computer === 'rock'){
             winner = game.player1.name;
             game.player1.wins += 1;
-        }
-    
+        } 
+        
     else {
         winner = game.player2.name;
-            game.player2.wins += 1;
+        game.player2.wins += 1;
     }
 
     return `${winner} wins!!`;
@@ -156,6 +165,7 @@ function playGame(e){
     e.preventDefault();
     displayName();
     checkGameChosen();
+    toggleHidden('remove', [changeGameBtn])
 }
 
 function checkGameChosen() {
@@ -167,8 +177,22 @@ function checkGameChosen() {
 }
 
 function resetGame() {
-    iconContainer.innerHTML = resetIcons;
     chooseMsg.innerHTML = 'Choose Your Fighter';
+    iconContainer.innerHTML = resetIcons;
+    if (game.mode === 'difficult'){
+        iconContainer.innerHTML = `
+        <img class="icon" id="0" src="./assets/happy-paper.png" alt="paper icon">
+        <img class="icon" id="1" src="./assets/happy-rocks.png" alt="rock icon">
+        <img class="icon" id="2" src="./assets/happy-scissors.png" alt="scissors icon">
+        <img class="icon difficult-icon" id="3" src="./assets/happy-heart.png" alt="heart icon">
+        <img class="icon difficult-icon" id="4" src="./assets/happy-star.png" alt="star icon">
+        `
+    }
+    
+}
+
+function changeGames(){
+
 }
 
 // Login Page
@@ -218,7 +242,7 @@ function classicModeView() {
 function difficultModeView() {
     chooseMsg.innerHTML = 'Choose Your Fighter';
     toggleHidden('add', [loginView, ...gameBoxes]);
-    toggleHidden('remove', [gameView], );
+    toggleHidden('remove', [gameView, ...difficultIcons]);
 }
 
 

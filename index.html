@@ -17,6 +17,7 @@
             <section id="player1">
                 <h2 id="playerName">Player</h2>
                 <h3 id="playerWins">Wins:</h3>
+                <button class="hidden" id="changeGame">Change Game</button>
             </section>
         </div>
         <main>
@@ -27,19 +28,19 @@
                 <div class="games classic">
                     <section id="classic">
                         <h3>CLASSIC MODE:</h3>
-                        <p>&#127800;&nbsp;&nbsp;rock > scissors&nbsp;&nbsp;&#127800;</p>
-                        <p>&#127800&nbsp;&nbsp;paper > rock&nbsp;&nbsp;&#127800;</p>
-                        <p>&#127800;&nbsp;&nbsp;scissors > paper&nbsp;&nbsp;&#127800;</p>
+                        <p>🌸 rock > scissors 🌸</p>
+                        <p>🌸 paper > rock 🌸</p>
+                        <p>🌸 scissors > paper 🌸</p>
                     </section>
                 </div>
                 <div class="games difficult">
                     <section id="difficult">
                         <h3>DIFFICULT MODE:</h3>
-                        <p>&#127800;&nbsp;&nbsp;rock > scissors & heart&nbsp;&nbsp;&#127800;</p>
-                        <p>&#127800&nbsp;&nbsp;paper > rock & star&nbsp;&nbsp;&#127800;</p>
-                        <p>&#127800;&nbsp;&nbsp;scissors > paper & heart&nbsp;&nbsp;&#127800;</p>
-                        <p>&#127800;&nbsp;&nbsp;heart > paper & star&nbsp;&nbsp;&#127800;</p>
-                        <p>&#127800;&nbsp;&nbsp;star > scissors & rock&nbsp;&nbsp;&#127800;</p>
+                        <p>🌸 rock > scissors & heart 🌸</p>
+                        <p>🌸 paper > rock & star 🌸</p>
+                        <p>🌸 scissors > paper & heart 🌸</p>
+                        <p>🌸 heart > paper & star 🌸</p>
+                        <p>🌸 star > scissors & rock 🌸</p>
                     </section>
                 </div>
                 <div class="login-view hidden">
@@ -58,11 +59,11 @@
                 </div>
                 <div class="game-view hidden" id="classicGame">
                     <section class="icon-container">
-                        <img class="icon" id="0" src="./assets/happy-paper.png" alt="paper icon">
-                        <img class="icon" id="1" src="./assets/happy-rocks.png" alt="rock icon">
+                        <img class="icon" id="0" src="./assets/happy-rocks.png" alt="paper icon">
+                        <img class="icon" id="1" src="./assets/happy-paper.png" alt="rock icon">
                         <img class="icon" id="2" src="./assets/happy-scissors.png" alt="scissors icon">
-                        <span class="icon" id="3">💗</span>
-                        <span class="icon" id="3">⭐️</span>
+                        <img class="icon difficult-icon hidden" id="3" src="./assets/happy-heart.png" alt="heart icon">
+                        <img class="icon difficult-icon hidden" id="4" src="./assets/happy-star.png" alt="star icon">
                     </section>
                 </div>
                 <div class="game-view hidden" id="diffucultGame">

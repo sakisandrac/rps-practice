@@ -13,6 +13,9 @@ var winCountPlayer = document.querySelector('#playerWins');
 var winCountComp = document.querySelector('#computerWins');
 var difficultIcons = document.querySelectorAll('.difficult-icon');
 var changeGameBtn = document.querySelector('#changeGame');
+var player1Token = document.querySelector('#player1Token');
+var player2Token = document.querySelector('#player2Token');
+
 var resetIcons = iconContainer.innerHTML;
 
 // Event Listeners
@@ -171,6 +174,33 @@ function changeGames(){
     toggleHidden('add', [gameView]);
 }
 
+function loadGame(mode) {
+    chooseMsg.innerHTML = 'Choose Your Fighter';
+    loadIcons(mode);
+    toggleHidden('add', [loginView, ...gameBoxes]);
+    toggleHidden('remove', [gameView]);
+}
+
+function loadIcons(mode) {
+    if (mode === 'difficult'){
+        iconContainer.innerHTML = `
+        <img class="icon" id="0" src="./assets/happy-rocks.png" alt="paper icon">
+        <img class="icon" id="1" src="./assets/happy-paper.png" alt="rock icon">
+        <img class="icon" id="2" src="./assets/happy-scissors.png" alt="scissors icon">
+        <img class="icon difficult-icon" id="3" src="./assets/happy-heart.png" alt="heart icon">
+        <img class="icon difficult-icon" id="4" src="./assets/happy-star.png" alt="star icon">
+        `
+    } else {
+        iconContainer.innerHTML = resetIcons;
+    }
+}
+
+function toggleHidden(select, elements){
+    for (var i=0; i < elements.length; i++){
+    elements[i].classList[select]('hidden');
+    }
+}
+
 // Login Page
 function login(e){
     if (!changedGames){
@@ -201,8 +231,6 @@ function selectGameMode(e) {
         return 'difficult';
     }
 }
-var player1Token = document.querySelector('#player1Token');
-var player2Token = document.querySelector('#player2Token');
 
 function displayUserInfo() {
     game.player1.name = userName.value;
@@ -211,49 +239,3 @@ function displayUserInfo() {
     player2Token.innerHTML = game.player2.token
 }
 
-function toggleHidden(select, elements){
-    for (var i=0; i < elements.length; i++){
-    elements[i].classList[select]('hidden');
-    }
-}
-
-// Game Views 
-// function classicModeView() {
-//     chooseMsg.innerHTML = 'Choose Your Fighter';
-//     classicIconsLoad();
-//     toggleHidden('add', [loginView, ...gameBoxes]);
-//     toggleHidden('remove', [gameView]);
-// }
-
-// function difficultModeView() {
-//     chooseMsg.innerHTML = 'Choose Your Fighter';
-//     toggleHidden('add', [loginView, ...gameBoxes]);
-//     toggleHidden('remove', [gameView]);
-//     difficultIconsLoad()
-
-// }
-
-function loadGame(mode) {
-    chooseMsg.innerHTML = 'Choose Your Fighter';
-    loadIcons(mode);
-    toggleHidden('add', [loginView, ...gameBoxes]);
-    toggleHidden('remove', [gameView]);
-}
-
-function loadIcons(mode) {
-    if (mode === 'difficult'){
-        iconContainer.innerHTML = `
-        <img class="icon" id="0" src="./assets/happy-rocks.png" alt="paper icon">
-        <img class="icon" id="1" src="./assets/happy-paper.png" alt="rock icon">
-        <img class="icon" id="2" src="./assets/happy-scissors.png" alt="scissors icon">
-        <img class="icon difficult-icon" id="3" src="./assets/happy-heart.png" alt="heart icon">
-        <img class="icon difficult-icon" id="4" src="./assets/happy-star.png" alt="star icon">
-        `
-    } else {
-        iconContainer.innerHTML = resetIcons;
-    }
-}
-
-// function classicIconsLoad() {
-//     iconContainer.innerHTML = resetIcons;
-// }

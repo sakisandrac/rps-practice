@@ -55,19 +55,11 @@ function createGame(player1, player2, mode) {
     }
 }
 
-function playGame(e){
+function playGame(e, mode){
     e.preventDefault();
-    displayName();
-    checkGameChosen(game.mode);
-    toggleHidden('remove', [changeGameBtn])
-}
-
-function checkGameChosen(mode) {
-if (mode === 'classic'){
-    classicModeView();
-} else {
-    difficultModeView();
-}
+    displayUserInfo();
+    loadGame(mode);
+    toggleHidden('remove', [changeGameBtn]);
 }
 
 function takeTurn(e){
@@ -101,61 +93,51 @@ function checkWinner(player, computer) {
     var winner;
 
     if (player === 'rock' && computer === 'scissors'){
-            winner = game.player1.name;
-            game.player1.wins += 1;
+            winner = game.player1;
         }
 
     else if (player === 'rock' && computer === 'heart'){
-        winner = game.player1.name;
-        game.player1.wins += 1;
+            winner = game.player1;
         }
     
     else if (player === 'paper' && computer === 'rock'){
-            winner = game.player1.name;
-            game.player1.wins += 1;
+            winner = game.player1;
         }
 
     else if (player === 'paper' && computer === 'star'){
-            winner = game.player1.name;
-            game.player1.wins += 1;
+            winner = game.player1;
         }
 
     else if (player === 'scissors' && computer === 'paper'){
-            winner = game.player1.name;
-            game.player1.wins += 1;
+            winner = game.player1;
         }
 
     else if (player === 'scissors' && computer === 'heart'){
-            winner = game.player1.name;
-            game.player1.wins += 1;
+            winner = game.player1;
         }
 
     else if (player === 'heart' && computer === 'paper'){
-            winner = game.player1.name;
-            game.player1.wins += 1;
+            winner = game.player1;
         }
   
     else if (player === 'heart' && computer === 'star'){
-            winner = game.player1.name;
-            game.player1.wins += 1;
+            winner = game.player1;
         }   
 
     else if (player === 'star' && computer === 'scissors'){
-            winner = game.player1.name;
-            game.player1.wins += 1;
+            winner = game.player1;
         }
 
     else if (player === 'star' && computer === 'rock'){
-            winner = game.player1.name;
-            game.player1.wins += 1;
+            winner = game.player1;
         } 
         
     else {
-        winner = game.player2.name;
-        game.player2.wins += 1;
+        winner = game.player2;
     }
 
-    return `${winner} wins!!`;
+    winner.wins +=1
+    return `${winner.name} wins!!`;
 }
 
 function getResults(player1, player2) {
@@ -179,13 +161,8 @@ function displayResults(player1, player2) {
 }
 
 function resetGame(mode) {
-    chooseMsg.innerHTML = 'Choose Your Fighter'
-
-    if (mode=== 'difficult'){
-       loadDifficultIcons();
-    } else {
-        loadClassicIcons();
-    }
+    chooseMsg.innerHTML = 'Choose Your Fighter';
+    loadIcons(mode);
 }
 
 function changeGames(){
@@ -205,8 +182,7 @@ function login(e){
         createDataModel(e);
     } else {
         game.mode = selectGameMode(e)
-        playGame(e);
-
+        playGame(e, game.mode);
     }
 }
 
@@ -225,10 +201,14 @@ function selectGameMode(e) {
         return 'difficult';
     }
 }
+var player1Token = document.querySelector('#player1Token');
+var player2Token = document.querySelector('#player2Token');
 
-function displayName() {
+function displayUserInfo() {
     game.player1.name = userName.value;
     playerName.innerHTML = game.player1.name;
+    player1Token.innerHTML = game.player1.token
+    player2Token.innerHTML = game.player2.token
 }
 
 function toggleHidden(select, elements){
@@ -238,31 +218,42 @@ function toggleHidden(select, elements){
 }
 
 // Game Views 
-function classicModeView() {
+// function classicModeView() {
+//     chooseMsg.innerHTML = 'Choose Your Fighter';
+//     classicIconsLoad();
+//     toggleHidden('add', [loginView, ...gameBoxes]);
+//     toggleHidden('remove', [gameView]);
+// }
+
+// function difficultModeView() {
+//     chooseMsg.innerHTML = 'Choose Your Fighter';
+//     toggleHidden('add', [loginView, ...gameBoxes]);
+//     toggleHidden('remove', [gameView]);
+//     difficultIconsLoad()
+
+// }
+
+function loadGame(mode) {
     chooseMsg.innerHTML = 'Choose Your Fighter';
-    loadClassicIcons();
+    loadIcons(mode);
     toggleHidden('add', [loginView, ...gameBoxes]);
     toggleHidden('remove', [gameView]);
 }
 
-function difficultModeView() {
-    chooseMsg.innerHTML = 'Choose Your Fighter';
-    toggleHidden('add', [loginView, ...gameBoxes]);
-    toggleHidden('remove', [gameView, ...difficultIcons]);
-    loadDifficultIcons()
-
-}
-
-function loadDifficultIcons() {
-    iconContainer.innerHTML = `
-        <img class="icon" id="0" src="./assets/happy-paper.png" alt="paper icon">
-        <img class="icon" id="1" src="./assets/happy-rocks.png" alt="rock icon">
+function loadIcons(mode) {
+    if (mode === 'difficult'){
+        iconContainer.innerHTML = `
+        <img class="icon" id="0" src="./assets/happy-rocks.png" alt="paper icon">
+        <img class="icon" id="1" src="./assets/happy-paper.png" alt="rock icon">
         <img class="icon" id="2" src="./assets/happy-scissors.png" alt="scissors icon">
         <img class="icon difficult-icon" id="3" src="./assets/happy-heart.png" alt="heart icon">
         <img class="icon difficult-icon" id="4" src="./assets/happy-star.png" alt="star icon">
         `
+    } else {
+        iconContainer.innerHTML = resetIcons;
+    }
 }
 
-function loadClassicIcons() {
-    iconContainer.innerHTML = resetIcons;
-}
+// function classicIconsLoad() {
+//     iconContainer.innerHTML = resetIcons;
+// }

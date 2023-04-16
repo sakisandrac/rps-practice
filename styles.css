@@ -23,13 +23,23 @@ h1 {
 
 main {
     color: rgba(38, 38, 38, 0.8);   
-    /* display: flex; */
-    /* justify-content: center; */
+}
+
+/* MAIN VIEW */
+h2 {
+    font-size: 2rem;
+    margin: 10px;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin: 10px;
 }
 
 #chooseHeader {
     display: flex;
     justify-content: center;
+    text-align: center;
 }
 
 #middleContainer {
@@ -94,16 +104,6 @@ input {
     margin: 10px 0 30px 0
 }
 
-.avatar {
-    font-size: 4rem;
-    padding: 10px;
-    cursor: pointer;
-}
-
-.avatar:hover {
-    font-size: 4.5rem;
-}
-
 button {
     border: none;
     background-color: rgb(229, 130, 146);
@@ -130,13 +130,16 @@ button:hover {
 }
 .icon {
     height: 8rem;
-    font-size: 8rem;
     cursor: pointer;
 }
 
 .icon:hover {
-    height: 9rem;
-    font-size: 9rem;
+    height: 9em;
+}
+
+.token {
+    font-size: 3rem;
+    margin: 5px
 }
 
 .hidden {

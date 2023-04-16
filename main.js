@@ -55,8 +55,7 @@ function createGame(player1, player2, mode) {
 
 function takeTurn(e){
     var playerChoice = game.player1.fighter[chooseFighter(e)];
-
-    var computerChoice = game.player2.fighter[computeFighter()];
+    var computerChoice = game.player2.fighter[computeFighter(game.mode)];
 
     displayResults(playerChoice, computerChoice);
 }
@@ -85,12 +84,12 @@ function chooseFighter(e){
     return parseInt(e.target.id)
 }  
 
-function computeFighter() {
-    if (game.mode === 'classic'){
+function computeFighter(mode) {
+    if (mode === 'classic'){
         return Math.floor(Math.random() * 3);
     }
 
-    if (game.mode === 'difficult'){
+    if (mode === 'difficult'){
         return Math.floor(Math.random() * 5);
     }
 }
@@ -172,7 +171,7 @@ function playGame(e){
 function checkGameChosen(mode) {
     if (mode === 'classic'){
         classicModeView();
-    } if (mode === 'difficult'){
+    } else {
         difficultModeView();
     }
 }

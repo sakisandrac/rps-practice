@@ -21,7 +21,9 @@ difficultMode.addEventListener('click',login);
 playButton.addEventListener('click', playGame);
 iconContainer.addEventListener('click', function(e){
     takeTurn(e);
-    setTimeout(resetGame, 1000);
+    setTimeout(function() {
+        resetGame(game.mode)
+    }, 1000);
 });
 changeGameBtn.addEventListener('click', changeGames)
 
@@ -53,31 +55,26 @@ function createGame(player1, player2, mode) {
     }
 }
 
+function playGame(e){
+    e.preventDefault();
+    displayName();
+    checkGameChosen(game.mode);
+    toggleHidden('remove', [changeGameBtn])
+}
+
+function checkGameChosen(mode) {
+if (mode === 'classic'){
+    classicModeView();
+} else {
+    difficultModeView();
+}
+}
+
 function takeTurn(e){
     var playerChoice = game.player1.fighter[chooseFighter(e)];
     var computerChoice = game.player2.fighter[computeFighter(game.mode)];
 
     displayResults(playerChoice, computerChoice);
-}
-
-function getResults(player1, player2) {
-    if (checkDraw(player1.icon, player2.icon)){
-        return 'Draw';
-    } else {
-        return checkWinner(player1.icon, player2.icon);
-    }
-}
-
-function displayResults(player1, player2) {
-    chooseMsg.innerHTML = getResults(player1, player2);
- 
-    iconContainer.innerHTML = `
-        <img src="${player1.img}" class="icon" alt"${player1.icon} icon">
-        <img src="${player2.img}" class="icon" alt"${player2.icon} icon">
-     `
-
-    playerWins.innerHTML = `Wins: <p>${game.player1.wins}<p>`
-    computerWins.innerHTML = `Wins: <p>${game.player2.wins}<p>`
 }
 
 function chooseFighter(e){
@@ -91,6 +88,12 @@ function computeFighter(mode) {
 
     if (mode === 'difficult'){
         return Math.floor(Math.random() * 5);
+    }
+}
+
+function checkDraw(player, computer) {
+    if (player === computer){
+        return true;
     }
 }
 
@@ -155,32 +158,33 @@ function checkWinner(player, computer) {
     return `${winner} wins!!`;
 }
 
-function checkDraw(player, computer) {
-    if (player === computer){
-        return true;
-    }
-}
-
-function playGame(e){
-        e.preventDefault();
-        displayName();
-        checkGameChosen(game.mode);
-        toggleHidden('remove', [changeGameBtn])
-}
-
-function checkGameChosen(mode) {
-    if (mode === 'classic'){
-        classicModeView();
+function getResults(player1, player2) {
+    if (checkDraw(player1.icon, player2.icon)){
+        return 'Draw';
     } else {
-        difficultModeView();
+        return checkWinner(player1.icon, player2.icon);
     }
 }
 
-function resetGame() {
-    chooseMsg.innerHTML = 'Choose Your Fighter';
-    loadClassicIcons();
-    if (game.mode === 'difficult'){
+function displayResults(player1, player2) {
+    chooseMsg.innerHTML = getResults(player1, player2);
+ 
+    iconContainer.innerHTML = `
+        <img src="${player1.img}" class="icon" alt"${player1.icon} icon">
+        <img src="${player2.img}" class="icon" alt"${player2.icon} icon">
+     `
+
+    playerWins.innerHTML = `Wins: <p>${game.player1.wins}<p>`
+    computerWins.innerHTML = `Wins: <p>${game.player2.wins}<p>`
+}
+
+function resetGame(mode) {
+    chooseMsg.innerHTML = 'Choose Your Fighter'
+
+    if (mode=== 'difficult'){
        loadDifficultIcons();
+    } else {
+        loadClassicIcons();
     }
 }
 

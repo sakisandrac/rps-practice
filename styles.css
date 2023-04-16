@@ -138,13 +138,13 @@ button:hover {
 }
 .icon {
     height: 8rem;
-    font-size: 8rem;
     cursor: pointer;
 }
 
 .icon:hover {
-    height: 9rem;
-    font-size: 9rem;
+    height: 9em;
+    /* box-shadow: 3px 3px rgba(255, 255, 255, .3), -3px 0 3px rgba(255, 255, 255, .3); */
+    /* box-shadow: 5px 10px rgba(255, 255, 255, .3); */
 }
 
 .hidden {

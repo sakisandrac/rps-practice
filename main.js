@@ -5,7 +5,7 @@ var gameView = document.querySelector('.game-view');
 var gameBoxes = document.querySelectorAll('.games');
 var chooseMsg = document.querySelector('#chooseMsg');
 var iconContainer = document.querySelector('.icon-container');
-var loginView = document.querySelector('.login-view')
+var loginView = document.querySelector('.login-view');
 var playButton = document.querySelector('#play');
 var userName = document.querySelector('#nameInput');
 var playerName = document.querySelector('#playerName');
@@ -102,25 +102,25 @@ function checkDraw(player, computer) {
 }
 
 function checkPlayerChoice(playerChoice) {
-    var playerWin = Object.keys(playerWins)
+    var playerWin = Object.keys(playerWins);
 
     for (var i=0; i < playerWin.length; i++){
         if (playerWin[i] === playerChoice){
-            return playerWin[i]
+            return playerWin[i];
         }
     }
 }
 
 function checkWinner(playerChoice, computerChoice){
-    let key = checkPlayerChoice(playerChoice)
+    let key = checkPlayerChoice(playerChoice);
 
     for (var i=0; i < playerWins[key].length; i++){
         if (playerWins[key][i] === computerChoice){
-            game.player1.wins += 1
-            return `${game.player1.name} Wins!`
+            game.player1.wins += 1;
+            return `${game.player1.name} Wins!`;
         } else {
-            game.player2.wins += 1
-            return 'Computer Wins!'
+            game.player2.wins += 1;
+            return 'Computer Wins!';
         }
     }
 }
@@ -140,10 +140,10 @@ function displayResults(player1, player2) {
     iconContainer.innerHTML = `
         <img src="${player1.img}" class="icon" alt"${player1.icon} icon">
         <img src="${player2.img}" class="icon" alt"${player2.icon} icon">
-     `
+     `;
 
-    winCountPlayer.innerHTML = `Wins: <p>${game.player1.wins}<p>`
-    winCountComp.innerHTML = `Wins: <p>${game.player2.wins}<p>`
+    winCountPlayer.innerHTML = `Wins: <p>${game.player1.wins}<p>`;
+    winCountComp.innerHTML = `Wins: <p>${game.player2.wins}<p>`;
 }
 
 function resetGame(mode) {
@@ -172,7 +172,7 @@ function loadIcons(mode) {
         <img class="icon" id="2" src="./assets/happy-scissors.png" alt="scissors icon">
         <img class="icon difficult-icon" id="3" src="./assets/happy-heart.png" alt="heart icon">
         <img class="icon difficult-icon" id="4" src="./assets/happy-star.png" alt="star icon">
-        `
+        `;
     } else {
         iconContainer.innerHTML = resetIcons;
     }
@@ -194,7 +194,7 @@ function login(e){
 
         createDataModel(e);
     } else {
-        game.mode = selectGameMode(e)
+        game.mode = selectGameMode(e);
         playGame(e, game.mode);
     }
 }
@@ -218,7 +218,7 @@ function selectGameMode(e) {
 function displayUserInfo() {
     game.player1.name = userName.value;
     playerName.innerHTML = game.player1.name;
-    player1Token.innerHTML = game.player1.token
-    player2Token.innerHTML = game.player2.token
+    player1Token.innerHTML = game.player1.token;
+    player2Token.innerHTML = game.player2.token;
 }
 

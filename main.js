@@ -27,10 +27,10 @@ playButton.addEventListener('click', function(e){
 iconContainer.addEventListener('click', function(e){
     takeTurn(e);
     setTimeout(function() {
-        resetGame(game.mode)
+        resetGame(game.mode);
     }, 1000);
 });
-changeGameBtn.addEventListener('click', changeGames)
+changeGameBtn.addEventListener('click', changeGames);
 
 // Data Models
 var game;
@@ -82,7 +82,7 @@ function takeTurn(e){
 }
 
 function chooseFighter(e){
-    return parseInt(e.target.id);
+    return parseInt(e.target.dataset.indexNumber);
 }  
 
 function computeFighter(mode) {
@@ -167,11 +167,11 @@ function loadGame(mode) {
 function loadIcons(mode) {
     if (mode === 'difficult'){
         iconContainer.innerHTML = `
-        <img class="icon" id="0" src="./assets/happy-rocks.png" alt="paper icon">
-        <img class="icon" id="1" src="./assets/happy-paper.png" alt="rock icon">
-        <img class="icon" id="2" src="./assets/happy-scissors.png" alt="scissors icon">
-        <img class="icon difficult-icon" id="3" src="./assets/happy-heart.png" alt="heart icon">
-        <img class="icon difficult-icon" id="4" src="./assets/happy-star.png" alt="star icon">
+        <img class="icon" data-index-number="0" src="./assets/happy-rocks.png" alt="paper icon">
+        <img class="icon" data-index-number="1" src="./assets/happy-paper.png" alt="rock icon">
+        <img class="icon" data-index-number="2" src="./assets/happy-scissors.png" alt="scissors icon">
+        <img class="icon difficult-icon" data-index-number="3" src="./assets/happy-heart.png" alt="heart icon">
+        <img class="icon difficult-icon" data-index-number="4" src="./assets/happy-star.png" alt="star icon">
         `;
     } else {
         iconContainer.innerHTML = resetIcons;
@@ -181,7 +181,7 @@ function loadIcons(mode) {
 function toggleHidden(select, elements){
     for (var i=0; i < elements.length; i++){
     elements[i].classList[select]('hidden');
-    }
+    } 
 }
 
 // Login Page

@@ -21,7 +21,9 @@ var resetIcons = iconContainer.innerHTML;
 // Event Listeners
 classicMode.addEventListener('click', login);
 difficultMode.addEventListener('click',login);
-playButton.addEventListener('click', playGame);
+playButton.addEventListener('click', function(e){
+    playGame(e, game.mode);
+});
 iconContainer.addEventListener('click', function(e){
     takeTurn(e);
     setTimeout(function() {
@@ -33,6 +35,13 @@ changeGameBtn.addEventListener('click', changeGames)
 // Data Models
 var game;
 var changedGames = false;
+var playerWins = {
+    rock: ['scissors', 'heart'],
+    paper: ['rock', 'star'],
+    scissors: ['paper', 'heart'],
+    heart: ['paper', 'star'],
+    star: ['scissors', 'rock']
+};
 
 // Game Functions
 function createPlayer(name, token = '👱') {
@@ -45,7 +54,7 @@ function createPlayer(name, token = '👱') {
             {icon: 'paper', img: './assets/happy-paper.png'},
             {icon: 'scissors', img: './assets/happy-scissors.png'},
             {icon: 'heart', img: './assets/happy-heart.png'},
-            {icon: 'heart', img: './assets/happy-star.png'}
+            {icon: 'star', img: './assets/happy-star.png'}
         ]
     }
 }
@@ -73,7 +82,7 @@ function takeTurn(e){
 }
 
 function chooseFighter(e){
-    return parseInt(e.target.id)
+    return parseInt(e.target.id);
 }  
 
 function computeFighter(mode) {
@@ -92,62 +101,36 @@ function checkDraw(player, computer) {
     }
 }
 
-function checkWinner(player, computer) {
-    var winner;
+function checkPlayerChoice(playerChoice) {
+    var playerWin = Object.keys(playerWins)
 
-    if (player === 'rock' && computer === 'scissors'){
-            winner = game.player1;
+    for (var i=0; i < playerWin.length; i++){
+        if (playerWin[i] === playerChoice){
+            return playerWin[i]
         }
-
-    else if (player === 'rock' && computer === 'heart'){
-            winner = game.player1;
-        }
-    
-    else if (player === 'paper' && computer === 'rock'){
-            winner = game.player1;
-        }
-
-    else if (player === 'paper' && computer === 'star'){
-            winner = game.player1;
-        }
-
-    else if (player === 'scissors' && computer === 'paper'){
-            winner = game.player1;
-        }
-
-    else if (player === 'scissors' && computer === 'heart'){
-            winner = game.player1;
-        }
-
-    else if (player === 'heart' && computer === 'paper'){
-            winner = game.player1;
-        }
-  
-    else if (player === 'heart' && computer === 'star'){
-            winner = game.player1;
-        }   
-
-    else if (player === 'star' && computer === 'scissors'){
-            winner = game.player1;
-        }
-
-    else if (player === 'star' && computer === 'rock'){
-            winner = game.player1;
-        } 
-        
-    else {
-        winner = game.player2;
     }
+}
 
-    winner.wins +=1
-    return `${winner.name} wins!!`;
+function checkWinner(playerChoice, computerChoice){
+    let key = checkPlayerChoice(playerChoice)
+
+    for (var i=0; i < playerWins[key].length; i++){
+        if (playerWins[key][i] === computerChoice){
+            game.player1.wins += 1
+            return `${game.player1.name} Wins!`
+        } else {
+            game.player2.wins += 1
+            return 'Computer Wins!'
+        }
+    }
 }
 
 function getResults(player1, player2) {
     if (checkDraw(player1.icon, player2.icon)){
         return 'Draw';
     } else {
-        return checkWinner(player1.icon, player2.icon);
+        return checkWinner(player1.icon, player2.icon)
+        ;
     }
 }
 
@@ -159,8 +142,8 @@ function displayResults(player1, player2) {
         <img src="${player2.img}" class="icon" alt"${player2.icon} icon">
      `
 
-    playerWins.innerHTML = `Wins: <p>${game.player1.wins}<p>`
-    computerWins.innerHTML = `Wins: <p>${game.player2.wins}<p>`
+    winCountPlayer.innerHTML = `Wins: <p>${game.player1.wins}<p>`
+    winCountComp.innerHTML = `Wins: <p>${game.player2.wins}<p>`
 }
 
 function resetGame(mode) {
@@ -204,7 +187,7 @@ function toggleHidden(select, elements){
 // Login Page
 function login(e){
     if (!changedGames){
-        chooseMsg.innerHTML = 'Enter Your Name & Choose Avatar';
+        chooseMsg.innerHTML = 'Enter Your Name';
 
         toggleHidden('remove', [loginView]);
         toggleHidden('add', gameBoxes);

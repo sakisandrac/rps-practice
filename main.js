@@ -15,7 +15,6 @@ var difficultIcons = document.querySelectorAll('.difficult-icon');
 var changeGameBtn = document.querySelector('#changeGame');
 var player1Token = document.querySelector('#player1Token');
 var player2Token = document.querySelector('#player2Token');
-
 var resetIcons = iconContainer.innerHTML;
 
 // Event Listeners
@@ -25,7 +24,7 @@ playButton.addEventListener('click', function(e){
     playGame(e, game.mode);
 });
 iconContainer.addEventListener('click', function(e){
-    takeTurn(e);
+    takeTurn(e, game.player1, game.player2);
     setTimeout(function() {
         resetGame(game.mode);
     }, 1000);
@@ -34,7 +33,6 @@ changeGameBtn.addEventListener('click', changeGames);
 
 // Data Models
 var game;
-var changedGames = false;
 var playerWins = {
     rock: ['scissors', 'heart'],
     paper: ['rock', 'star'],
@@ -49,13 +47,7 @@ function createPlayer(name, token = '👱') {
         name,
         token,
         wins: 0,
-        fighter: [
-            {icon: 'rock', img: './assets/happy-rocks.png'},
-            {icon: 'paper', img: './assets/happy-paper.png'},
-            {icon: 'scissors', img: './assets/happy-scissors.png'},
-            {icon: 'heart', img: './assets/happy-heart.png'},
-            {icon: 'star', img: './assets/happy-star.png'}
-        ]
+        fighterChosen: null
     }
 }
 
@@ -64,6 +56,13 @@ function createGame(player1, player2, mode) {
         player1,
         player2,
         mode,
+        fighter: [
+            {icon: 'rock', img: './assets/happy-rocks.png'},
+            {icon: 'paper', img: './assets/happy-paper.png'},
+            {icon: 'scissors', img: './assets/happy-scissors.png'},
+            {icon: 'heart', img: './assets/happy-heart.png'},
+            {icon: 'star', img: './assets/happy-star.png'}
+        ],
     }
 }
 
@@ -74,11 +73,11 @@ function playGame(e, mode){
     toggleHidden('remove', [changeGameBtn]);
 }
 
-function takeTurn(e){
-    var playerChoice = game.player1.fighter[chooseFighter(e)];
-    var computerChoice = game.player2.fighter[computeFighter(game.mode)];
+function takeTurn(e, player1, player2){
+    player1.fighterChosen = game.fighter[chooseFighter(e)];
+    player2.fighterChosen = game.fighter[computeFighter(game.mode)];
 
-    displayResults(playerChoice, computerChoice);
+    displayResults(player1.fighterChosen, player2.fighterChosen);
 }
 
 function chooseFighter(e){
@@ -129,18 +128,16 @@ function getResults(player1, player2) {
     if (checkDraw(player1.icon, player2.icon)){
         return 'Draw';
     } else {
-        return checkWinner(player1.icon, player2.icon)
-        ;
+        return checkWinner(player1.icon, player2.icon);
     }
 }
 
 function displayResults(player1, player2) {
     chooseMsg.innerHTML = getResults(player1, player2);
  
-    iconContainer.innerHTML = `
-        <img src="${player1.img}" class="icon" alt"${player1.icon} icon">
-        <img src="${player2.img}" class="icon" alt"${player2.icon} icon">
-     `;
+    iconContainer.innerHTML = 
+        `<img src="${player1.img}" class="icon" alt"${player1.icon} icon">
+        <img src="${player2.img}" class="icon" alt"${player2.icon} icon">`;
 
     winCountPlayer.innerHTML = `Wins: <p>${game.player1.wins}<p>`;
     winCountComp.innerHTML = `Wins: <p>${game.player2.wins}<p>`;
@@ -152,7 +149,7 @@ function resetGame(mode) {
 }
 
 function changeGames(){
-    changedGames = true;
+    chooseMsg.innerHTML = 'Choose Your Game!';
     toggleHidden('remove', gameBoxes);
     toggleHidden('add', [gameView]);
 }
@@ -186,7 +183,7 @@ function toggleHidden(select, elements){
 
 // Login Page
 function login(e){
-    if (!changedGames){
+    if (!game){
         chooseMsg.innerHTML = 'Enter Your Name';
 
         toggleHidden('remove', [loginView]);

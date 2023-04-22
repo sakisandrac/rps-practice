@@ -1,3 +1,4 @@
+/* GENERAL */
 html {
     height: 100%;
 }
@@ -7,6 +8,11 @@ body {
     font-family: 'Abril Fatface', cursive;
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+/* MAIN VIEW */
+main {
+    color: rgba(38, 38, 38, 0.8);   
 }
 
 header {
@@ -21,11 +27,6 @@ h1 {
     margin: 20px;
 }
 
-main {
-    color: rgba(38, 38, 38, 0.8);   
-}
-
-/* MAIN VIEW */
 h2 {
     font-size: 2rem;
     margin: 10px;
@@ -36,17 +37,10 @@ h3 {
     margin: 10px;
 }
 
-#chooseHeader {
+.choose-header {
     display: flex;
     justify-content: center;
     text-align: center;
-}
-
-#middleContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 525px;
 }
 .games {
     height: 250px;
@@ -62,11 +56,6 @@ h3 {
     background-color: rgba(255, 255, 255, .9);
 }
 
-#mainContainer {
-    display: flex;
-    justify-content: space-between;
-}
-
 .players {
     background-color:rgba(255, 255, 255, .3);
     height: 100vh;
@@ -77,7 +66,18 @@ h3 {
     text-align: center;
     color:antiquewhite;
     text-shadow: 3px 2px 2px black;
+}
 
+#mainContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+#middleContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 525px;
 }
 
 #classic, #difficult {
@@ -85,13 +85,6 @@ h3 {
 }
 
 /* LOGIN VIEW */
-#login {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
 label {
     font-size: 1.5rem;
     padding: 0 10px;
@@ -117,6 +110,13 @@ button {
 button:hover {
     background-color: antiquewhite;
     color:  rgba(38, 38, 38, 0.8)
+}
+
+#login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 /* GAME VIEW */

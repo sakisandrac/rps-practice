@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <title>Rock Paper Scissors</title>
 </head>
@@ -18,11 +18,11 @@
                 <h2 id="playerName">Player</h2>
                 <p class="token" id="player1Token"></p>
                 <h3 id="playerWins">Wins:</h3>
-                <button class="hiden" id="changeGame">Change Game</button>
+                <button class="hidden" id="changeGame">Change Game</button>
             </section>
         </div>
         <main>
-            <div id="chooseHeader">
+            <div class="choose-header">
                 <h3 id="chooseMsg">Choose Your Game!</h2>
             </div>
             <div class="choose-view" id="middleContainer">
@@ -53,14 +53,15 @@
                 </div>
                 <div class="game-view hidden" id="classicGame">
                     <section class="icon-container">
-                        <img class="icon" id="0" src="./assets/happy-rocks.png" alt="paper icon">
-                        <img class="icon" id="1" src="./assets/happy-paper.png" alt="rock icon">
-                        <img class="icon" id="2" src="./assets/happy-scissors.png" alt="scissors icon">
-                        <img class="icon difficult-icon hidden" id="3" src="./assets/happy-heart.png" alt="heart icon">
-                        <img class="icon difficult-icon hidden" id="4" src="./assets/happy-star.png" alt="star icon">
+                        <img class="icon" data-index-number="0" src="./assets/happy-rocks.png" alt="paper icon">
+                        <img class="icon" data-index-number="1" src="./assets/happy-paper.png" alt="rock icon">
+                        <img class="icon" data-index-number="2" src="./assets/happy-scissors.png" alt="scissors icon">
+                        <img class="icon difficult-icon hidden" data-index-number="3" src="./assets/happy-heart.png" alt="heart icon">
+                        <img class="icon difficult-icon hidden" data-index-number="4" src="./assets/happy-star.png" alt="star icon">
                     </section>
                 </div>
                 <div class="game-view hidden" id="diffucultGame">
+                    <!-- difficult game icons will appear here if game is chosen -->
                 </div>
             </div>
         </main>
@@ -72,7 +73,6 @@
             </section>
         </div>
     </div>
-  
     <script src="main.js"></script>
 </body>
 </html>

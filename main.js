@@ -118,13 +118,18 @@ function checkWinner(playerChoice, computerChoice){
         if (game.playerWins[key][i] === computerChoice){
             game.player1.wins += 1;
             game.winner = game.player1;
+            console.log(game.winner)
+            return `${game.winner.name} Wins!`;
         } else {
             game.player2.wins += 1;
             game.winner = game.player2;
+            console.log(game.winner)
+            return `${game.winner.name} Wins!`;
         }
+        
     }
     
-    return `${game.winner.name} Wins!`;
+    
 }
 
 function getResults(player1, player2) {

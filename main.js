@@ -33,13 +33,6 @@ changeGameBtn.addEventListener('click', changeGames);
 
 // Data Models
 var game;
-var playerWins = {
-    rock: ['scissors', 'heart'],
-    paper: ['rock', 'star'],
-    scissors: ['paper', 'heart'],
-    heart: ['paper', 'star'],
-    star: ['scissors', 'rock']
-};
 
 // Game Functions
 function createPlayer(name, token = '👱') {
@@ -56,6 +49,7 @@ function createGame(player1, player2, mode) {
         player1,
         player2,
         mode,
+        winner: null,
         fighter: [
             {icon: 'rock', img: './assets/happy-rocks.png'},
             {icon: 'paper', img: './assets/happy-paper.png'},
@@ -63,6 +57,13 @@ function createGame(player1, player2, mode) {
             {icon: 'heart', img: './assets/happy-heart.png'},
             {icon: 'star', img: './assets/happy-star.png'}
         ],
+        playerWins: {
+            rock: ['scissors', 'heart'],
+            paper: ['rock', 'star'],
+            scissors: ['paper', 'heart'],
+            heart: ['paper', 'star'],
+            star: ['scissors', 'rock']
+        }
     }
 }
 
@@ -101,7 +102,7 @@ function checkDraw(player, computer) {
 }
 
 function checkPlayerChoice(playerChoice) {
-    var playerWin = Object.keys(playerWins);
+    var playerWin = Object.keys(game.playerWins);
 
     for (var i=0; i < playerWin.length; i++){
         if (playerWin[i] === playerChoice){
@@ -113,15 +114,17 @@ function checkPlayerChoice(playerChoice) {
 function checkWinner(playerChoice, computerChoice){
     let key = checkPlayerChoice(playerChoice);
 
-    for (var i=0; i < playerWins[key].length; i++){
-        if (playerWins[key][i] === computerChoice){
+    for (var i=0; i < game.playerWins[key].length; i++){
+        if (game.playerWins[key][i] === computerChoice){
             game.player1.wins += 1;
-            return `${game.player1.name} Wins!`;
+            game.winner = game.player1;
         } else {
             game.player2.wins += 1;
-            return 'Computer Wins!';
+            game.winner = game.player2;
         }
     }
+    
+    return `${game.winner.name} Wins!`;
 }
 
 function getResults(player1, player2) {

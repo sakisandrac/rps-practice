@@ -15,18 +15,17 @@ var difficultIcons = document.querySelectorAll('.difficult-icon');
 var changeGameBtn = document.querySelector('#changeGame');
 var player1Token = document.querySelector('#player1Token');
 var player2Token = document.querySelector('#player2Token');
-var resetIcons = iconContainer.innerHTML;
 
 // Event Listeners
 classicMode.addEventListener('click', login);
 difficultMode.addEventListener('click',login);
 playButton.addEventListener('click', function(e){
-    playGame(e, game.mode);
+    playGame(e, game);
 });
 iconContainer.addEventListener('click', function(e){
     takeTurn(e, game);
     setTimeout(function() {
-        resetGame(game.mode);
+        resetGame(game);
     }, 1000);
 });
 changeGameBtn.addEventListener('click', changeGames);
@@ -67,10 +66,10 @@ function createGame(player1, player2, mode) {
     }
 }
 
-function playGame(e, mode){
+function playGame(e, game){
     e.preventDefault();
     displayUserInfo();
-    loadGame(mode);
+    loadGame(game);
     toggleHidden('remove', [changeGameBtn]);
 }
 
@@ -82,7 +81,7 @@ function takeTurn(e, game){
 }
 
 function chooseFighter(e){
-    return parseInt(e.target.dataset.indexNumber);
+    return e.target.dataset.indexNumber;
 }  
 
 function computeFighter(mode) {
@@ -148,15 +147,15 @@ function displayResults(game) {
     winCountComp.innerHTML = `Wins: <p>${game.player2.wins}<p>`;
 }
 
-function resetGame(mode) {
+function resetGame(game) {
     chooseMsg.innerHTML = 'Choose Your Fighter';
-    loadIcons(mode);
+    loadIcons(game);
 }
 
 function changeGames(){
     chooseMsg.innerHTML = 'Choose Your Game!';
     toggleHidden('remove', gameBoxes);
-    toggleHidden('add', [gameView]);
+    toggleHidden('add', [gameView, changeGameBtn]);
 }
 
 function loadGame(mode) {
@@ -166,18 +165,22 @@ function loadGame(mode) {
     toggleHidden('remove', [gameView]);
 }
 
-function loadIcons(mode) {
-    if (mode === 'difficult'){
-        iconContainer.innerHTML = `
-        <img class="icon" data-index-number="0" src="./assets/happy-rocks.png" alt="paper icon">
-        <img class="icon" data-index-number="1" src="./assets/happy-paper.png" alt="rock icon">
-        <img class="icon" data-index-number="2" src="./assets/happy-scissors.png" alt="scissors icon">
-        <img class="icon difficult-icon" data-index-number="3" src="./assets/happy-heart.png" alt="heart icon">
-        <img class="icon difficult-icon" data-index-number="4" src="./assets/happy-star.png" alt="star icon">
-        `;
+function loadIcons(game) {
+    iconContainer.innerHTML = "";
+
+    if (game.mode === 'difficult'){
+        for (var i=0; i < game.fighter.length; i++){
+            iconContainer.innerHTML += createIcons(game.fighter[i], i);
+        }
     } else {
-        iconContainer.innerHTML = resetIcons;
+        for (var i=0; i < game.fighter.length -2; i++){
+            iconContainer.innerHTML += createIcons(game.fighter[i], i);
+        }
     }
+}
+
+function createIcons(fighter, i){
+        return `<img class="icon" data-index-number="${[i]}" src="${fighter.img}" alt="${fighter.icon} icon">`
 }
 
 function toggleHidden(select, elements){
@@ -197,7 +200,7 @@ function login(e){
         createDataModel(e);
     } else {
         game.mode = selectGameMode(e);
-        playGame(e, game.mode);
+        playGame(e, game);
     }
 }
 

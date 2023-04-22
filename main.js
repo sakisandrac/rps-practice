@@ -24,7 +24,7 @@ playButton.addEventListener('click', function(e){
     playGame(e, game.mode);
 });
 iconContainer.addEventListener('click', function(e){
-    takeTurn(e, game.player1, game.player2);
+    takeTurn(e, game);
     setTimeout(function() {
         resetGame(game.mode);
     }, 1000);
@@ -74,11 +74,11 @@ function playGame(e, mode){
     toggleHidden('remove', [changeGameBtn]);
 }
 
-function takeTurn(e, player1, player2){
-    player1.fighterChosen = game.fighter[chooseFighter(e)];
-    player2.fighterChosen = game.fighter[computeFighter(game.mode)];
+function takeTurn(e, game){
+    game.player1.fighterChosen = game.fighter[chooseFighter(e)];
+    game.player2.fighterChosen = game.fighter[computeFighter(game.mode)];
 
-    displayResults(player1.fighterChosen, player2.fighterChosen);
+    displayResults(game);
 }
 
 function chooseFighter(e){
@@ -111,41 +111,38 @@ function checkPlayerChoice(playerChoice) {
     }
 }
 
-function checkWinner(playerChoice, computerChoice){
-    let key = checkPlayerChoice(playerChoice);
+function checkWinner(game){
+    let key = checkPlayerChoice(game.player1.fighterChosen.icon);
 
     for (var i=0; i < game.playerWins[key].length; i++){
-        if (game.playerWins[key][i] === computerChoice){
+        if (game.playerWins[key][i] === game.player2.fighterChosen.icon){
             game.player1.wins += 1;
-            game.winner = game.player1;
-            console.log(game.winner)
-            return `${game.winner.name} Wins!`;
+            game.winner = game.player1.name;
+
+            return `${game.winner} Wins!`;
         } else {
             game.player2.wins += 1;
-            game.winner = game.player2;
-            console.log(game.winner)
-            return `${game.winner.name} Wins!`;
+            game.winner = game.player2.name;
+ 
+            return `${game.winner} Wins!`;
         }
-        
     }
-    
-    
 }
 
-function getResults(player1, player2) {
-    if (checkDraw(player1.icon, player2.icon)){
+function getResults(game) {
+    if (checkDraw(game.player1.fighterChosen.icon, game.player2.fighterChosen.icon)){
         return 'Draw';
     } else {
-        return checkWinner(player1.icon, player2.icon);
+        return checkWinner(game);
     }
 }
 
-function displayResults(player1, player2) {
-    chooseMsg.innerHTML = getResults(player1, player2);
+function displayResults(game) {
+    chooseMsg.innerHTML = getResults(game);
  
     iconContainer.innerHTML = 
-        `<img src="${player1.img}" class="icon" alt"${player1.icon} icon">
-        <img src="${player2.img}" class="icon" alt"${player2.icon} icon">`;
+        `<img src="${game.player1.fighterChosen.img}" class="icon" alt"${game.player1.fighterChosen.icon} icon">
+        <img src="${game.player2.fighterChosen.img}" class="icon" alt"${game.player2.fighterChosen.icon} icon">`;
 
     winCountPlayer.innerHTML = `Wins: <p>${game.player1.wins}<p>`;
     winCountComp.innerHTML = `Wins: <p>${game.player2.wins}<p>`;
